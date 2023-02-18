@@ -92,6 +92,18 @@ app.route("/articles/:Name")
                 res.send(err);
         }
     );
+})
+
+.delete(function(req,res){
+    Article.deleteOne(
+        {title: req.params.Name},
+        function(err){
+            if (!err)
+                res.send("Successfully deleted article!");
+            else
+                res.send(err);
+        }
+    );
 });
 
 app.listen(3000, function() {
