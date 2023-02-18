@@ -66,8 +66,20 @@ app.route("/articles/:Name")
             res.send(foundArticle);
         else
             res.send("No articles found!");
-    })
+    });
 })
+
+.put(function(req, res){
+    Article.updateOne(
+        {title: req.params.Name},
+        {title: req.body.title, content: req.body.content},
+        {overwrite: false},
+        function(err){
+            if (!err)
+                res.send("Successfully updated articles");
+        }
+    );
+});
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");
