@@ -2,7 +2,6 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const ejs = require("ejs");
 const mongoose = require("mongoose");
 
 const app = express();
@@ -35,7 +34,6 @@ app.route("/articles")
 })
 
 .post(function(req, res){
-
     const newArticle = new Article({
         title: req.body.title,
         content: req.body.content
@@ -58,6 +56,18 @@ app.route("/articles")
             res.send(err);
     });
 });
+
+app.route("/articles/:Name")
+
+.get(function(req, res){
+
+    Article.findOne({title: req.params.Name}, function(err, foundArticle){
+        if (foundArticle)
+            res.send(foundArticle);
+        else
+            res.send("No articles found!");
+    })
+})
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");
